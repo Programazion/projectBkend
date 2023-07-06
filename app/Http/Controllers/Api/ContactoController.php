@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Contacto;
+use App\Models\Creacion;
 
 class ContactoController extends Controller
 {
@@ -21,4 +22,22 @@ class ContactoController extends Controller
 
         return response()->json($peticion);
     }
+   
+
+    public function create(Request $request){
+
+    $crea = new Contacto();
+
+    $crea->nombre = $request->input("nombre");
+    $crea->apellidos = $request->input("apellidos");
+    $crea->telefono = $request->input("telefono");
+    $crea->email = $request->input("email");
+    $crea->requerimiento = $request->input("requerimiento");
+
+    $crea->save();
+
+    $message=["message" => "Resgistro Exitoso!!"];
+
+    return response()->json($message,Response::HTTP_CREATED);
+}
 }
