@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\ContactoController;
 
 Route::get('/peticion', [ContactoController::class,'read']);
 Route::post('/respuesta', [ContactoController::class,'create']);
+Route::put('/actualizacion', [ContactoController::class,'update']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

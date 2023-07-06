@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Contacto;
-use App\Models\Creacion;
+
 
 class ContactoController extends Controller
 {
@@ -40,4 +40,33 @@ class ContactoController extends Controller
 
     return response()->json($message,Response::HTTP_CREATED);
 }
+
+public function update(Request $request){
+
+
+    $idContacto = $request->query("id");
+
+    $contacto= new Contacto();
+
+    $contactoParticular = $contacto->find($idContacto);
+
+    $contactoParticular->nombre = $request->input("nombre");
+    $contactoParticular->apellidos = $request->input("apellidos");
+    $contactoParticular->telefono = $request->input("telefono");
+    $contactoParticular->email = $request->input("email");
+    $contactoParticular->requerimiento = $request->input("requerimiento");
+
+
+    $contactoParticular->save();
+
+    $message=[
+        "message" => "Actualización Exitosa!!",
+        "idContacto" => $request->query("id"),
+        "nombre"=>$contactoParticular->nombre
+    ];
+
+    return $message;
+}
+
+    
 }
