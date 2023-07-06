@@ -68,5 +68,31 @@ public function update(Request $request){
     return $message;
 }
 
-    
+public function delete(Request $request){
+
+
+    $idContacto = $request->query("id");
+
+    $contacto= new Contacto();
+
+    $contacto = $contacto->find($idContacto);
+
+    $contacto->nombre = $request->input("nombre");
+    $contacto->apellidos = $request->input("apellidos");
+    $contacto->telefono = $request->input("telefono");
+    $contacto->email = $request->input("email");
+    $contacto->requerimiento = $request->input("requerimiento");
+
+
+    $contacto->delete();
+
+    $message=[
+        "message" => "Contacto Borrado!!",
+        "idContacto" => $request->query("id"),
+        
+    ];
+
+    return $message;
+}
+
 }
